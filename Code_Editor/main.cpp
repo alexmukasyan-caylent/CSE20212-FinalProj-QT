@@ -1,11 +1,14 @@
+#include <QtWidgets>
+
 #include "codeeditor.h"
-#include <QApplication>
 
-int main(int argc, char *argv[])
+int main(int argv, char **args)
 {
-    QApplication a(argc, argv);
-    codeeditor w;
-    w.show();
+    QApplication app(argv, args);
 
-    return a.exec();
+    CodeEditor editor;
+    editor.setWindowTitle(QObject::tr("Code Editor Example"));
+    editor.show();
+
+    return app.exec();
 }
