@@ -2,6 +2,8 @@
 #define CODEEDITOR_H
 
 #include <QMainWindow>
+#include <QPlainTextEdit>
+#include <QObject>
 
 namespace Ui {
 class codeeditor;
