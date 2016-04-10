@@ -3,12 +3,12 @@
 
 #include <QSyntaxHighlighter>
 
-class CTextSyntaxHighlighter : public QSyntaxHighlighter
+class SyntaxHighlighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 
 public:
-    CTextSyntaxHighlighter(QTextDocument *parent = 0);
+    SyntaxHighlighter(QTextDocument *parent = 0);
 private:
     void highlightBlock(const QString &text);
 };
