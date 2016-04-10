@@ -3,6 +3,7 @@
 
 #include <QPlainTextEdit>
 #include <QObject>
+#include "ui_codeeditor.h"
 
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
@@ -28,6 +29,7 @@ protected:
 
 private:
     QWidget *lineNumberArea;
+    //Ui::codeeditor ui;
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();

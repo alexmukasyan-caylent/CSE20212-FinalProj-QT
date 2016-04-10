@@ -102,6 +102,7 @@ public:
         actionModify_Active_Syntax_Rules->setObjectName(QStringLiteral("actionModify_Active_Syntax_Rules"));
         centralWidget = new QWidget(codeeditor);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setEnabled(true);
         codeeditor->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(codeeditor);
         menuBar->setObjectName(QStringLiteral("menuBar"));
