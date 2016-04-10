@@ -50,35 +50,11 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../Code_Editor/main.cpp \
 		../Code_Editor/codeeditor.cpp \
-		../Code_Editor/syntaxhighlight.cpp \
-		../Code_Editor/spellchecker.cpp \
-		../Code_Editor/suggestmgr.cxx \
-		../Code_Editor/replist.cxx \
-		../Code_Editor/phonet.cxx \
-		../Code_Editor/hunzip.cxx \
-		../Code_Editor/hunspell.cxx \
-		../Code_Editor/hashmgr.cxx \
-		../Code_Editor/filemgr.cxx \
-		../Code_Editor/dictmgr.cxx \
-		../Code_Editor/csutil.cxx \
-		../Code_Editor/affixmgr.cxx \
-		../Code_Editor/affentry.cxx moc_codeeditor.cpp \
+		../Code_Editor/syntaxhighlight.cpp moc_codeeditor.cpp \
 		moc_syntaxhighlighter.cpp
 OBJECTS       = main.o \
 		codeeditor.o \
 		syntaxhighlight.o \
-		spellchecker.o \
-		suggestmgr.o \
-		replist.o \
-		phonet.o \
-		hunzip.o \
-		hunspell.o \
-		hashmgr.o \
-		filemgr.o \
-		dictmgr.o \
-		csutil.o \
-		affixmgr.o \
-		affentry.o \
 		moc_codeeditor.o \
 		moc_syntaxhighlighter.o
 DIST          = ../../Qt5.6.0/5.6/clang_64/mkspecs/features/spec_pre.prf \
@@ -223,41 +199,9 @@ DIST          = ../../Qt5.6.0/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.6.0/5.6/clang_64/mkspecs/features/yacc.prf \
 		../../Qt5.6.0/5.6/clang_64/mkspecs/features/lex.prf \
 		../Code_Editor/Code_Editor.pro ../Code_Editor/codeeditor.h \
-		../Code_Editor/syntaxhighlighter.h \
-		../Code_Editor/spellchecker.h \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/suggestmgr.hxx \
-		../Code_Editor/replist.hxx \
-		../Code_Editor/phonet.hxx \
-		langnum.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/hunspell.hxx \
-		../Code_Editor/hunspell.h \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/hashmgr.hxx \
-		finddialog.h \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/dictmgr.hxx \
-		../Code_Editor/csutil.hxx \
-		../Code_Editor/baseaffix.hxx \
-		../Code_Editor/atypes.hxx \
-		../Code_Editor/affixmgr.hxx \
-		../Code_Editor/affentry.hxx ../Code_Editor/main.cpp \
+		../Code_Editor/syntaxhighlighter.h ../Code_Editor/main.cpp \
 		../Code_Editor/codeeditor.cpp \
-		../Code_Editor/syntaxhighlight.cpp \
-		../Code_Editor/spellchecker.cpp \
-		../Code_Editor/suggestmgr.cxx \
-		../Code_Editor/replist.cxx \
-		../Code_Editor/phonet.cxx \
-		../Code_Editor/hunzip.cxx \
-		../Code_Editor/hunspell.cxx \
-		../Code_Editor/hashmgr.cxx \
-		../Code_Editor/filemgr.cxx \
-		../Code_Editor/dictmgr.cxx \
-		../Code_Editor/csutil.cxx \
-		../Code_Editor/affixmgr.cxx \
-		../Code_Editor/affentry.cxx
+		../Code_Editor/syntaxhighlight.cpp
 QMAKE_TARGET  = Code_Editor
 DESTDIR       = 
 TARGET        = Code_Editor.app/Contents/MacOS/Code_Editor
@@ -590,8 +534,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Code_Editor/codeeditor.h ../Code_Editor/syntaxhighlighter.h ../Code_Editor/spellchecker.h ../Code_Editor/w_char.hxx ../Code_Editor/suggestmgr.hxx ../Code_Editor/replist.hxx ../Code_Editor/phonet.hxx langnum.hxx ../Code_Editor/hunzip.hxx ../Code_Editor/hunvisapi.h ../Code_Editor/hunspell.hxx ../Code_Editor/hunspell.h ../Code_Editor/htypes.hxx ../Code_Editor/hashmgr.hxx finddialog.h ../Code_Editor/filemgr.hxx ../Code_Editor/dictmgr.hxx ../Code_Editor/csutil.hxx ../Code_Editor/baseaffix.hxx ../Code_Editor/atypes.hxx ../Code_Editor/affixmgr.hxx ../Code_Editor/affentry.hxx $(DISTDIR)/
-	$(COPY_FILE) --parents ../Code_Editor/main.cpp ../Code_Editor/codeeditor.cpp ../Code_Editor/syntaxhighlight.cpp ../Code_Editor/spellchecker.cpp ../Code_Editor/suggestmgr.cxx ../Code_Editor/replist.cxx ../Code_Editor/phonet.cxx ../Code_Editor/hunzip.cxx ../Code_Editor/hunspell.cxx ../Code_Editor/hashmgr.cxx ../Code_Editor/filemgr.cxx ../Code_Editor/dictmgr.cxx ../Code_Editor/csutil.cxx ../Code_Editor/affixmgr.cxx ../Code_Editor/affentry.cxx $(DISTDIR)/
+	$(COPY_FILE) --parents ../Code_Editor/codeeditor.h ../Code_Editor/syntaxhighlighter.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Code_Editor/main.cpp ../Code_Editor/codeeditor.cpp ../Code_Editor/syntaxhighlight.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Code_Editor/codeeditor.ui $(DISTDIR)/
 
 
@@ -922,148 +866,9 @@ codeeditor.o: ../Code_Editor/codeeditor.cpp ../../Qt5.6.0/5.6/clang_64/lib/QtWid
 syntaxhighlight.o: ../Code_Editor/syntaxhighlight.cpp ../Code_Editor/syntaxhighlighter.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtGui.framework/Headers/QSyntaxHighlighter \
 		../../Qt5.6.0/5.6/clang_64/lib/QtGui.framework/Headers/qsyntaxhighlighter.h \
-		../Code_Editor/spellchecker.h \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QString \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QTextBoundaryFinder \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qtextboundaryfinder.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o syntaxhighlight.o ../Code_Editor/syntaxhighlight.cpp
-
-spellchecker.o: ../Code_Editor/spellchecker.cpp ../Code_Editor/spellchecker.h \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QString \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qstring.h \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QFile \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qfile.h \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QTextStream \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qtextstream.h \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QStringList \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
-		../Code_Editor/hunspell.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/hashmgr.hxx \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/affixmgr.hxx \
-		../Code_Editor/atypes.hxx \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/baseaffix.hxx \
-		../Code_Editor/phonet.hxx \
-		../Code_Editor/replist.hxx \
-		../Code_Editor/suggestmgr.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spellchecker.o ../Code_Editor/spellchecker.cpp
-
-suggestmgr.o: ../Code_Editor/suggestmgr.cxx ../Code_Editor/suggestmgr.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/atypes.hxx \
-		../Code_Editor/hashmgr.hxx \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/affixmgr.hxx \
-		../Code_Editor/baseaffix.hxx \
-		../Code_Editor/phonet.hxx \
-		../Code_Editor/replist.hxx \
-		../Code_Editor/csutil.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o suggestmgr.o ../Code_Editor/suggestmgr.cxx
-
-replist.o: ../Code_Editor/replist.cxx ../Code_Editor/replist.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/csutil.hxx \
-		../Code_Editor/htypes.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o replist.o ../Code_Editor/replist.cxx
-
-phonet.o: ../Code_Editor/phonet.cxx ../Code_Editor/csutil.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/phonet.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o phonet.o ../Code_Editor/phonet.cxx
-
-hunzip.o: ../Code_Editor/hunzip.cxx ../Code_Editor/hunzip.hxx \
-		../Code_Editor/hunvisapi.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hunzip.o ../Code_Editor/hunzip.cxx
-
-hunspell.o: ../Code_Editor/hunspell.cxx ../Code_Editor/hunspell.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/hashmgr.hxx \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/affixmgr.hxx \
-		../Code_Editor/atypes.hxx \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/baseaffix.hxx \
-		../Code_Editor/phonet.hxx \
-		../Code_Editor/replist.hxx \
-		../Code_Editor/suggestmgr.hxx \
-		../Code_Editor/hunspell.h \
-		../Code_Editor/csutil.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hunspell.o ../Code_Editor/hunspell.cxx
-
-hashmgr.o: ../Code_Editor/hashmgr.cxx ../Code_Editor/hashmgr.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/csutil.hxx \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/atypes.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hashmgr.o ../Code_Editor/hashmgr.cxx
-
-filemgr.o: ../Code_Editor/filemgr.cxx ../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/hunzip.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o filemgr.o ../Code_Editor/filemgr.cxx
-
-dictmgr.o: ../Code_Editor/dictmgr.cxx ../Code_Editor/dictmgr.hxx \
-		../Code_Editor/hunvisapi.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dictmgr.o ../Code_Editor/dictmgr.cxx
-
-csutil.o: ../Code_Editor/csutil.cxx ../Code_Editor/csutil.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/atypes.hxx \
-		../Code_Editor/hashmgr.hxx \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/utf_info.cxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o csutil.o ../Code_Editor/csutil.cxx
-
-affixmgr.o: ../Code_Editor/affixmgr.cxx ../Code_Editor/affixmgr.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/atypes.hxx \
-		../Code_Editor/hashmgr.hxx \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/baseaffix.hxx \
-		../Code_Editor/phonet.hxx \
-		../Code_Editor/replist.hxx \
-		../Code_Editor/affentry.hxx \
-		../Code_Editor/csutil.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affixmgr.o ../Code_Editor/affixmgr.cxx
-
-affentry.o: ../Code_Editor/affentry.cxx ../Code_Editor/affentry.hxx \
-		../Code_Editor/hunvisapi.h \
-		../Code_Editor/atypes.hxx \
-		../Code_Editor/hashmgr.hxx \
-		../Code_Editor/htypes.hxx \
-		../Code_Editor/filemgr.hxx \
-		../Code_Editor/hunzip.hxx \
-		../Code_Editor/w_char.hxx \
-		../Code_Editor/baseaffix.hxx \
-		../Code_Editor/affixmgr.hxx \
-		../Code_Editor/phonet.hxx \
-		../Code_Editor/replist.hxx \
-		../Code_Editor/csutil.hxx
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affentry.o ../Code_Editor/affentry.cxx
 
 moc_codeeditor.o: moc_codeeditor.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_codeeditor.o moc_codeeditor.cpp

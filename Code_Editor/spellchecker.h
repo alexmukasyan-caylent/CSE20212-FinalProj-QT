@@ -2,7 +2,7 @@
 #define SPELLCHECKER_H
 #include <QString>
 
-class Hunspell;
+//class Hunspell;
 
 class SpellChecker
 {

@@ -9,8 +9,25 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 
 public:
     SyntaxHighlighter(QTextDocument *parent = 0);
+protected:
+    void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
 private:
-    void highlightBlock(const QString &text);
+    struct HighlightingRule
+        {
+            QRegExp pattern;
+            QTextCharFormat format;
+        };
+        QVector<HighlightingRule> highlightingRules;
+
+        QRegExp commentStartExpression;
+        QRegExp commentEndExpression;
+
+        QTextCharFormat keywordFormat;
+        QTextCharFormat classFormat;
+        QTextCharFormat singleLineCommentFormat;
+        QTextCharFormat multiLineCommentFormat;
+        QTextCharFormat quotationFormat;
+        QTextCharFormat functionFormat;
 };
 
 #endif // SYNTAXHIGHLIGHTER_H
