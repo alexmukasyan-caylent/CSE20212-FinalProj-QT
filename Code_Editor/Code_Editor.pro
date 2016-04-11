@@ -16,10 +16,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         codeeditor.cpp \
     syntaxhighlight.cpp \
+    mainwindow.cpp
 
 HEADERS  += codeeditor.h \
     syntaxhighlighter.h \
-    opendialog.h
+    opendialog.h \
+    mainwindow.h
 
 
 FORMS    += codeeditor.ui

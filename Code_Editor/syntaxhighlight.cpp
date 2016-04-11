@@ -83,4 +83,3 @@ void SyntaxHighlighter::highlightBlock(const QString &text){
 }
 
 
-

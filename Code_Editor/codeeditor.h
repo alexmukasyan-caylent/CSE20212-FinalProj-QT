@@ -23,13 +23,11 @@ public:
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
 
-
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
 
 private:
     QWidget *lineNumberArea;
-    // Ui::codeeditor ui;
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
@@ -54,7 +52,6 @@ protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {
         codeEditor->lineNumberAreaPaintEvent(event);
     }
-
 private:
     CodeEditor *codeEditor;
 };

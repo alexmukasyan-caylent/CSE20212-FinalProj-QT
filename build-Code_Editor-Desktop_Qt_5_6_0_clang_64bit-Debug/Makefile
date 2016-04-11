@@ -50,11 +50,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../Code_Editor/main.cpp \
 		../Code_Editor/codeeditor.cpp \
-		../Code_Editor/syntaxhighlight.cpp moc_codeeditor.cpp \
+		../Code_Editor/syntaxhighlight.cpp \
+		../Code_Editor/mainwindow.cpp moc_codeeditor.cpp \
 		moc_syntaxhighlighter.cpp
 OBJECTS       = main.o \
 		codeeditor.o \
 		syntaxhighlight.o \
+		mainwindow.o \
 		moc_codeeditor.o \
 		moc_syntaxhighlighter.o
 DIST          = ../../Qt5.6.0/5.6/clang_64/mkspecs/features/spec_pre.prf \
@@ -200,9 +202,11 @@ DIST          = ../../Qt5.6.0/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.6.0/5.6/clang_64/mkspecs/features/lex.prf \
 		../Code_Editor/Code_Editor.pro ../Code_Editor/codeeditor.h \
 		../Code_Editor/syntaxhighlighter.h \
-		../Code_Editor/opendialog.h ../Code_Editor/main.cpp \
+		../Code_Editor/opendialog.h \
+		../Code_Editor/mainwindow.h ../Code_Editor/main.cpp \
 		../Code_Editor/codeeditor.cpp \
-		../Code_Editor/syntaxhighlight.cpp
+		../Code_Editor/syntaxhighlight.cpp \
+		../Code_Editor/mainwindow.cpp
 QMAKE_TARGET  = Code_Editor
 DESTDIR       = 
 TARGET        = Code_Editor.app/Contents/MacOS/Code_Editor
@@ -535,8 +539,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Code_Editor/codeeditor.h ../Code_Editor/syntaxhighlighter.h ../Code_Editor/opendialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Code_Editor/main.cpp ../Code_Editor/codeeditor.cpp ../Code_Editor/syntaxhighlight.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Code_Editor/codeeditor.h ../Code_Editor/syntaxhighlighter.h ../Code_Editor/opendialog.h ../Code_Editor/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Code_Editor/main.cpp ../Code_Editor/codeeditor.cpp ../Code_Editor/syntaxhighlight.cpp ../Code_Editor/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Code_Editor/codeeditor.ui $(DISTDIR)/
 
 
@@ -725,6 +729,15 @@ main.o: ../Code_Editor/main.cpp ../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framewo
 		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/qtoolbox.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/qtoolbutton.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
+		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenu \
+		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QSettings \
+		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qsettings.h \
+		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../Code_Editor/codeeditor.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QPlainTextEdit \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -876,6 +889,9 @@ syntaxhighlight.o: ../Code_Editor/syntaxhighlight.cpp ../Code_Editor/syntaxhighl
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QTextBoundaryFinder \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qtextboundaryfinder.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o syntaxhighlight.o ../Code_Editor/syntaxhighlight.cpp
+
+mainwindow.o: ../Code_Editor/mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Code_Editor/mainwindow.cpp
 
 moc_codeeditor.o: moc_codeeditor.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_codeeditor.o moc_codeeditor.cpp
