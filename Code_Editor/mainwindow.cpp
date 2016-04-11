@@ -63,10 +63,11 @@ MainWindow::MainWindow(): QMainWindow(){
     setWindowTitle(QString("%1 | %2").arg(editorName).arg(tr("untitled")));
     show();
 
-//    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(findPrevious(QString, Qt::CaseSensitivity)), this, SLOT(findup(QString, Qt::CaseSensitivity)));
-//    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(findNext(QString, Qt::CaseSensitivity)), this, SLOT(finddown(QString, Qt::CaseSensitivity)));
-//    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(replace(QString)), this, SLOT(replacetext(QString)));
+    find = new FindDialog(this);
 
+    connect(find, SIGNAL(findPrevious(QString, Qt::CaseSensitivity)), this, SLOT(searchDown(QString, Qt::CaseSensitivity)));
+    connect(find, SIGNAL(findNext(QString, Qt::CaseSensitivity)), this, SLOT(searchUp(QString, Qt::CaseSensitivity)));
+    connect(find, SIGNAL(replace(QString)), this, SLOT(replaceWord(QString)));
 }
 
 MainWindow::~MainWindow(){
@@ -121,4 +122,86 @@ void MainWindow::whilestate(){
 
 void MainWindow::dowhilestate(){
     editor->dowhilestate();
+}
+
+void MainWindow::searchUp(QString text, Qt::CaseSensitivity cs) //finds text movign downward
+{
+    if (!text.isEmpty())
+    {
+        if (!(editor->textCursor().atStart()))
+            editor->moveCursor(QTextCursor::NextWord);
+
+        editor->moveCursor(QTextCursor::StartOfWord);
+
+        bool sens;
+        if(cs == Qt::CaseSensitive)
+            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindCaseSensitively);
+        else
+            sens = editor->find(text, QTextDocument::FindWholeWords);
+
+        if (sens)
+        {
+            QTextCursor cursor = editor->textCursor();
+            cursor.select(QTextCursor::WordUnderCursor);
+        }
+        else if (editor->textCursor().atStart())
+        {
+            QMessageBox notFound;
+            notFound.setText("Keyword not found.");
+            notFound.exec();
+        }
+        else
+        {
+            editor->moveCursor(QTextCursor::Start);
+        }
+    }
+}
+
+void MainWindow::searchDown(QString text, Qt::CaseSensitivity cs)// finds text moving upward
+{
+    if (!text.isEmpty())
+    {
+        if (!(editor->textCursor().atEnd()))
+            editor->moveCursor(QTextCursor::PreviousWord);
+
+        bool sens;
+        if(cs == Qt::CaseSensitive)
+            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindBackward | QTextDocument::FindCaseSensitively);
+        else
+            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindBackward);
+
+        if (sens)
+        {
+            QTextCursor cursor = editor->textCursor();
+            cursor.select(QTextCursor::WordUnderCursor);
+        }
+        else if (editor->textCursor().atEnd())
+        {
+            QMessageBox notFound;
+            notFound.setText("Keyword not found.");
+            notFound.exec();
+        }
+        else
+        {
+            editor->moveCursor(QTextCursor::End);
+        }
+    }
+}
+
+void MainWindow::replaceWord(QString text) //replaces selected text
+{
+    if (!text.isEmpty())
+    {
+        if (editor->textCursor().hasSelection())
+        {
+            editor->textCursor().removeSelectedText();
+            editor->textCursor().insertText(text);
+        }
+        else
+        {
+            QMessageBox notFound;
+            notFound.setText("No text selected.");
+            notFound.exec();
+        }
+    }
 }

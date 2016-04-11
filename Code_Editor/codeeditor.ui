@@ -61,9 +61,7 @@
     <addaction name="actionFor"/>
     <addaction name="actionWhile"/>
     <addaction name="actionDo_While"/>
-    <addaction name="actionDeclaration_Wizard"/>
     <addaction name="separator"/>
-    <addaction name="actionCustom"/>
    </widget>
    <widget class="QMenu" name="menuSyntax_Validation">
     <property name="title">

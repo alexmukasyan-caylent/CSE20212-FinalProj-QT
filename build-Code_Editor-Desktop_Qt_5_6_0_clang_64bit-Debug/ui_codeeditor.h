@@ -147,9 +147,7 @@ public:
         menuTemplates->addAction(actionFor);
         menuTemplates->addAction(actionWhile);
         menuTemplates->addAction(actionDo_While);
-        menuTemplates->addAction(actionDeclaration_Wizard);
         menuTemplates->addSeparator();
-        menuTemplates->addAction(actionCustom);
         menuSyntax_Validation->addAction(actionModify_Type_Declarations);
         menuSyntax_Validation->addAction(actionModify_Active_Syntax_Rules);
 
