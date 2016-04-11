@@ -60,10 +60,8 @@ MainWindow::MainWindow(): QMainWindow(){
     ui->actionDo_While -> connect(ui->actionDo_While,SIGNAL(triggered()), this,   SLOT(dowhilestate()));
 
     setCentralWidget(editor);
-    //setWindowTitle(tr(editorName) + QString(" | ") + tr("untitled"));
+    setWindowTitle(QString("%1 | %2").arg(editorName).arg(tr("untitled")));
     show();
-
-//    dialog = new FindDialog(this);
 
 //    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(findPrevious(QString, Qt::CaseSensitivity)), this, SLOT(findup(QString, Qt::CaseSensitivity)));
 //    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(findNext(QString, Qt::CaseSensitivity)), this, SLOT(finddown(QString, Qt::CaseSensitivity)));
@@ -81,7 +79,7 @@ void MainWindow::openDialog() {
     QString tmpFilePath = QFileDialog::getOpenFileName(this, tr("Open File"));
     if (!tmpFilePath.isEmpty()) {
         filePath = tmpFilePath;
-        //setWindowTitle(tr(editorName) + QString(" | ") + filePath);
+        setWindowTitle(QString("%1 | %2").arg(editorName).arg(filePath.section('/',-1)));
         fileIsOpened = true;
         editor->openFile(filePath);
     }
@@ -99,7 +97,7 @@ void MainWindow::saveAsDialog(){
     QString tmpFilePath = QFileDialog::getSaveFileName(this, tr("Save File"), "",tr("File Type (*.txt);;C++ File (*.cpp *.h)"));
     if (!tmpFilePath.isEmpty()){
         filePath = tmpFilePath;
-        //setWindowTitle(tr(editorName) + QString(" | ") + filePath);
+        setWindowTitle(QString("%1 | %2").arg(editorName).arg(filePath.section('/',-1)));
         fileIsOpened = true;
         editor->saveFile(filePath);
     }
