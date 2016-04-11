@@ -59,6 +59,6 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::openDialog() {
-    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "",tr("C++ Files"));
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"));
     if (!filePath.isEmpty()) editor->openFile(filePath);
 }
