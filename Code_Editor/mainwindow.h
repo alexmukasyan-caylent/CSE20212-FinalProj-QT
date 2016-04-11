@@ -36,19 +36,12 @@ public:
     MainWindow();
     ~MainWindow();
 
-//private:
-    //SyntaxHighlighter *highlighter;
-    //CodeEditor *editor;
-    //Ui::codeeditor *ui;
-//private slots:
-//   void on_actionOpen_triggered();
-//   void on_actionCopy_triggered();
-//   void on_actionQuit_triggered();
-//   void on_actionCut_triggered();
-//   void on_actionPaste_triggered();
-//   void on_actionUndo_triggered();
-//   void on_actionRedo_triggered();
-//   void on_actionSelectAll_triggered();
+private:
+    SyntaxHighlighter *highlighter;
+    CodeEditor *editor;
+    Ui::codeeditor *ui;
+private slots:
+   void openDialog();
 };
 
 

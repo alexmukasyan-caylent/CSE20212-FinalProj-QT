@@ -1,5 +1,4 @@
 #include <QtWidgets>
-
 #include "codeeditor.h"
 #include "ui_codeeditor.h"
 
@@ -19,6 +18,15 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 }
 
 //![constructor]
+
+void CodeEditor::openFile(QString filePath) {
+    QFile file(filePath);
+    if (file.open(QFile::ReadWrite | QFile::Text)) {
+       this->document()->setPlainText(file.readAll());
+    } else {
+        // alert could not open file
+    }
+}
 
 //![extraAreaWidth]
 

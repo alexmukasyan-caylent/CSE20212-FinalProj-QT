@@ -33,16 +33,32 @@
 using namespace std;
 
 MainWindow::MainWindow(): QMainWindow(){
-//    ui = new Ui::codeeditor;
-//    ui -> setupUi(this);
-//    editor = new CodeEditor(this);
-//    highlighter = new SyntaxHighlighter(editor->document());
-//    this -> setCentralWidget(editor);
-//    //editor->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-//    this -> setWindowTitle(QObject::tr("Galeanthropy"));
-//    this -> show();
+    ui = new Ui::codeeditor;
+    ui -> setupUi(this);
+    editor = new CodeEditor(this);
+    highlighter = new SyntaxHighlighter(editor->document());
+
+    ui->actionQuit  -> connect(ui->actionQuit,  SIGNAL(triggered()), this,   SLOT(close()));
+    ui->actionCopy  -> connect(ui->actionCopy,  SIGNAL(triggered()), editor, SLOT(copy()));
+    ui->actionCut   -> connect(ui->actionCut,   SIGNAL(triggered()), editor, SLOT(cut()));
+    ui->actionPaste -> connect(ui->actionPaste, SIGNAL(triggered()), editor, SLOT(paste()));
+    ui->actionQuit  -> connect(ui->actionQuit,  SIGNAL(triggered()), editor, SLOT(selectAll()));
+    ui->actionUndo  -> connect(ui->actionUndo,  SIGNAL(triggered()), editor, SLOT(undo()));
+    ui->actionRedo  -> connect(ui->actionRedo,  SIGNAL(triggered()), editor, SLOT(redo()));
+    ui->actionOpen  -> connect(ui->actionOpen,  SIGNAL(triggered()), this,   SLOT(openDialog()));
+
+    this -> setCentralWidget(editor);
+    this -> setWindowTitle(QObject::tr("Galeanthropy"));
+    this -> show();
 }
 
 MainWindow::~MainWindow(){
+    delete highlighter;
+    delete editor;
+    delete ui;
+}
 
+void MainWindow::openDialog() {
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "",tr("C++ Files"));
+    if (!filePath.isEmpty()) editor->openFile(filePath);
 }

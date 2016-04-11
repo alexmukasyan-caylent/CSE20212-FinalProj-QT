@@ -22,7 +22,7 @@ public:
     CodeEditor(QWidget *parent = 0);
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
-
+    void openFile(QString filePath);
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
 
