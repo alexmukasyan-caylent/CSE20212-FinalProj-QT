@@ -28,6 +28,16 @@ void CodeEditor::openFile(QString filePath) {
     }
 }
 
+void CodeEditor::saveFile(QString fileName){
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadWrite)) {
+       QTextStream stream(&file);
+       stream << this->document()->toPlainText();
+       file.flush();
+       file.close();
+    }
+}
+
 //![extraAreaWidth]
 
 int CodeEditor::lineNumberAreaWidth()
@@ -75,7 +85,6 @@ void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
 void CodeEditor::resizeEvent(QResizeEvent *e)
 {
     QPlainTextEdit::resizeEvent(e);
-    //this -> setFixedSize(e->size());
     QRect cr = contentsRect();
     lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
 }

@@ -1,6 +1,8 @@
 #include <QtWidgets/QWidget>
 #include "mainwindow.h"
 #include <QPlainTextEdit>
+#include <QTextEdit>
+#include <QTextStream>
 #include <QAction>
 #include <QMenu>
 #include <QToolBar>
@@ -46,10 +48,17 @@ MainWindow::MainWindow(): QMainWindow(){
     ui->actionUndo  -> connect(ui->actionUndo,  SIGNAL(triggered()), editor, SLOT(undo()));
     ui->actionRedo  -> connect(ui->actionRedo,  SIGNAL(triggered()), editor, SLOT(redo()));
     ui->actionOpen  -> connect(ui->actionOpen,  SIGNAL(triggered()), this,   SLOT(openDialog()));
-
+    ui->actionSave_As  -> connect(ui->actionSave_As,SIGNAL(triggered()), this, SLOT(saveAsDialog()));
     this -> setCentralWidget(editor);
     this -> setWindowTitle(QObject::tr("Galeanthropy"));
     this -> show();
+
+//    dialog = new FindDialog(this);
+
+//    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(findPrevious(QString, Qt::CaseSensitivity)), this, SLOT(findup(QString, Qt::CaseSensitivity)));
+//    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(findNext(QString, Qt::CaseSensitivity)), this, SLOT(finddown(QString, Qt::CaseSensitivity)));
+//    ui-> actionFind_and_Replace -> connect(dialog, SIGNAL(replace(QString)), this, SLOT(replacetext(QString)));
+
 }
 
 MainWindow::~MainWindow(){
@@ -61,4 +70,11 @@ MainWindow::~MainWindow(){
 void MainWindow::openDialog() {
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"));
     if (!filePath.isEmpty()) editor->openFile(filePath);
+}
+
+void MainWindow::saveAsDialog(){
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "",tr("File Type (*.txt);;C++ File (*.cpp *.h)"));
+    //if(!fileName = '' ){
+    editor->saveFile(fileName);
+   // }
 }

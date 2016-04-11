@@ -28,6 +28,7 @@
 #include "codeeditor.h"
 #include "syntaxhighlighter.h"
 #include "ui_codeeditor.h"
+//#include "finddialog.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -42,6 +43,7 @@ private:
     Ui::codeeditor *ui;
 private slots:
    void openDialog();
+   void saveAsDialog();
 };
 
 
