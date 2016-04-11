@@ -19,6 +19,27 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 
 //![constructor]
 
+void CodeEditor::ifstate(){
+    this->insertPlainText("if([condition){}");
+}
+
+void CodeEditor::ifelsestate(){
+    this->insertPlainText("if([condition){}else{[action];}");
+}
+
+void CodeEditor::forstate(){
+    this->insertPlainText("for([incremented var];[var limit];[var increment]){}");
+}
+
+void CodeEditor::whilestate(){
+    this->insertPlainText("while([condition]{actions}");
+
+}
+
+void CodeEditor::dowhilestate(){
+    this->insertPlainText("do{actions}while([condition);");
+}
+
 void CodeEditor::openFile(QString filePath) {
     QFile file(filePath);
     if (file.open(QFile::ReadWrite | QFile::Text)) {

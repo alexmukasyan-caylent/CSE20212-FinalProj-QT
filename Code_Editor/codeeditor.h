@@ -24,9 +24,13 @@ public:
     int lineNumberAreaWidth();
     void openFile(QString filePath);
     void saveFile(QString fileName);
+    void ifstate();
+    void ifelsestate();
+    void forstate();
+    void whilestate();
+    void dowhilestate();
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
-
 private:
     QWidget *lineNumberArea;
 private slots:

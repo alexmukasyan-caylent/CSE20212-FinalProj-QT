@@ -41,9 +41,18 @@ private:
     SyntaxHighlighter *highlighter;
     CodeEditor *editor;
     Ui::codeeditor *ui;
+    bool fileIsOpened;
+    QString filePath;
+    QString editorName;
 private slots:
    void openDialog();
+   void saveDialog();
    void saveAsDialog();
+   void ifstate();
+   void ifelsestate();
+   void forstate();
+   void whilestate();
+   void dowhilestate();
 };
 
 
