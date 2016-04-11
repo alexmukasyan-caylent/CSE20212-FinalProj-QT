@@ -4,6 +4,7 @@
 #include <QPlainTextEdit>
 #include <QObject>
 #include "ui_codeeditor.h"
+#include "finddialog.h"
 
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
@@ -29,10 +30,12 @@ public:
     void forstate();
     void whilestate();
     void dowhilestate();
+    void find();
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
 private:
     QWidget *lineNumberArea;
+    //FindDialog *find;
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
