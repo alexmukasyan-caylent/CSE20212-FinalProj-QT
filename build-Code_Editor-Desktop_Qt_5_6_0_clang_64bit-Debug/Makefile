@@ -199,7 +199,8 @@ DIST          = ../../Qt5.6.0/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.6.0/5.6/clang_64/mkspecs/features/yacc.prf \
 		../../Qt5.6.0/5.6/clang_64/mkspecs/features/lex.prf \
 		../Code_Editor/Code_Editor.pro ../Code_Editor/codeeditor.h \
-		../Code_Editor/syntaxhighlighter.h ../Code_Editor/main.cpp \
+		../Code_Editor/syntaxhighlighter.h \
+		../Code_Editor/opendialog.h ../Code_Editor/main.cpp \
 		../Code_Editor/codeeditor.cpp \
 		../Code_Editor/syntaxhighlight.cpp
 QMAKE_TARGET  = Code_Editor
@@ -534,7 +535,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Code_Editor/codeeditor.h ../Code_Editor/syntaxhighlighter.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Code_Editor/codeeditor.h ../Code_Editor/syntaxhighlighter.h ../Code_Editor/opendialog.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../Code_Editor/main.cpp ../Code_Editor/codeeditor.cpp ../Code_Editor/syntaxhighlight.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Code_Editor/codeeditor.ui $(DISTDIR)/
 
@@ -567,6 +568,7 @@ moc_codeeditor.cpp: ../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/Q
 		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/qplaintextedit.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		ui_codeeditor.h \
 		../Code_Editor/codeeditor.h
 	/Users/alexandermukasyan/Qt5.6.0/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/alexandermukasyan/Qt5.6.0/5.6/clang_64/mkspecs/macx-clang -I/Users/alexandermukasyan/CSE20212-FinalProj-QT/Code_Editor -I/Users/alexandermukasyan/Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/alexandermukasyan/Qt5.6.0/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/alexandermukasyan/Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/alexandermukasyan/Qt5.6.0/5.6/clang_64/lib ../Code_Editor/codeeditor.h -o moc_codeeditor.cpp
 
@@ -726,7 +728,11 @@ main.o: ../Code_Editor/main.cpp ../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framewo
 		../Code_Editor/codeeditor.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QPlainTextEdit \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QObject \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qobject.h
+		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		ui_codeeditor.h \
+		../Code_Editor/syntaxhighlighter.h \
+		../../Qt5.6.0/5.6/clang_64/lib/QtGui.framework/Headers/QSyntaxHighlighter \
+		../../Qt5.6.0/5.6/clang_64/lib/QtGui.framework/Headers/qsyntaxhighlighter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Code_Editor/main.cpp
 
 codeeditor.o: ../Code_Editor/codeeditor.cpp ../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
@@ -860,7 +866,8 @@ codeeditor.o: ../Code_Editor/codeeditor.cpp ../../Qt5.6.0/5.6/clang_64/lib/QtWid
 		../Code_Editor/codeeditor.h \
 		../../Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers/QPlainTextEdit \
 		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/QObject \
-		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qobject.h
+		../../Qt5.6.0/5.6/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		ui_codeeditor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o codeeditor.o ../Code_Editor/codeeditor.cpp
 
 syntaxhighlight.o: ../Code_Editor/syntaxhighlight.cpp ../Code_Editor/syntaxhighlighter.h \

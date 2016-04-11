@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     syntaxhighlight.cpp \
 
 HEADERS  += codeeditor.h \
-    syntaxhighlighter.h
+    syntaxhighlighter.h \
+    opendialog.h
 
 
 FORMS    += codeeditor.ui

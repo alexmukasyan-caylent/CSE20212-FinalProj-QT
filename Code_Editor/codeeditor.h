@@ -29,7 +29,7 @@ protected:
 
 private:
     QWidget *lineNumberArea;
-    //Ui::codeeditor ui;
+    // Ui::codeeditor ui;
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
