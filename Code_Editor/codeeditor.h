@@ -38,6 +38,7 @@ protected:
     virtual void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE; //use for parenthesis completion
 private:
     QWidget *lineNumberArea;
+    bool placedDoubleCharacter;
     //FindDialog *find;
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);

@@ -110,17 +110,43 @@ QString CodeEditor::getLineIndent() {
 
 void CodeEditor::keyPressEvent(QKeyEvent *e){
     switch(e->key()) {
+      case Qt::Key_Backspace:
+        {
+            if (placedDoubleCharacter) {
+                moveCursor(QTextCursor::Right);
+                QPlainTextEdit::keyPressEvent(e);
+                QPlainTextEdit::keyPressEvent(e);
+            } else {
+                QPlainTextEdit::keyPressEvent(e);
+            }
+        }
+        break;
+      case Qt::Key_BraceRight:
+      case Qt::Key_BracketRight:
+      case Qt::Key_ParenRight:
+      case Qt::Key_Greater:
+        {
+          if (!placedDoubleCharacter) {
+                placedDoubleCharacter = false;
+                QPlainTextEdit::keyPressEvent(e);
+          } else {
+                moveCursor(QTextCursor::Right);
+          }
+        }
+        break;
       case Qt::Key_BraceLeft:
         {
             textCursor().beginEditBlock();
+            placedDoubleCharacter = true;
             insertPlainText("{}");
-            QPlainTextEdit::moveCursor(QTextCursor::Left);
+            moveCursor(QTextCursor::Left);
             textCursor().endEditBlock();
         }
         break;
       case Qt::Key_ParenLeft:
         {
             textCursor().beginEditBlock();
+            placedDoubleCharacter = true;
             insertPlainText("()");
             moveCursor(QTextCursor::Left);
             textCursor().endEditBlock();
@@ -129,6 +155,7 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
       case Qt::Key_BracketLeft:
         {
             textCursor().beginEditBlock();
+            placedDoubleCharacter = true;
             insertPlainText("[]");
             moveCursor(QTextCursor::Left);
             textCursor().endEditBlock();
@@ -137,6 +164,7 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
       case Qt::Key_Less:
         {
             textCursor().beginEditBlock();
+            placedDoubleCharacter = true;
             insertPlainText("<>");
             moveCursor(QTextCursor::Left);
             textCursor().endEditBlock();
@@ -144,18 +172,24 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
         break;
       case Qt::Key_Apostrophe:
         {
-            textCursor().beginEditBlock();
-            insertPlainText("''");
-            moveCursor(QTextCursor::Left);
-            textCursor().endEditBlock();
+            if (!placedDoubleCharacter) {
+                textCursor().beginEditBlock();
+                placedDoubleCharacter = true;
+                insertPlainText("''");
+                moveCursor(QTextCursor::Left);
+                textCursor().endEditBlock();
+            }
         }
         break;
       case Qt::Key_QuoteDbl:
         {
-            textCursor().beginEditBlock();
-            insertPlainText("\"\"");
-            moveCursor(QTextCursor::Left);
-            textCursor().endEditBlock();
+            if (!placedDoubleCharacter) {
+                textCursor().beginEditBlock();
+                placedDoubleCharacter = true;
+                insertPlainText("\"\"");
+                moveCursor(QTextCursor::Left);
+                textCursor().endEditBlock();
+            }
         }
         break;
       case Qt::Key_Return:
@@ -164,10 +198,19 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
             QString indent = getLineIndent();
             QPlainTextEdit::keyPressEvent(e);
             insertPlainText(indent);
+            if (placedDoubleCharacter) {
+                insertPlainText("\t");
+                QPlainTextEdit::keyPressEvent(e);
+                insertPlainText(indent);
+                moveCursor(QTextCursor::Up);
+                moveCursor(QTextCursor::EndOfLine);
+            }
+            placedDoubleCharacter = false;
             textCursor().endEditBlock();
         }
         break;
       default:
+        placedDoubleCharacter = false;
         QPlainTextEdit::keyPressEvent(e);
         break;
     }
