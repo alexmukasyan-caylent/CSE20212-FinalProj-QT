@@ -111,28 +111,52 @@ QString CodeEditor::getLineIndent() {
 void CodeEditor::keyPressEvent(QKeyEvent *e){
     switch(e->key()) {
       case Qt::Key_BraceLeft:
-        insertPlainText("{}");
-        QPlainTextEdit::moveCursor(QTextCursor::Left);
+        {
+            textCursor().beginEditBlock();
+            insertPlainText("{}");
+            QPlainTextEdit::moveCursor(QTextCursor::Left);
+            textCursor().endEditBlock();
+        }
         break;
       case Qt::Key_ParenLeft:
-        insertPlainText("()");
-        moveCursor(QTextCursor::Left);
+        {
+            textCursor().beginEditBlock();
+            insertPlainText("()");
+            moveCursor(QTextCursor::Left);
+            textCursor().endEditBlock();
+        }
         break;
       case Qt::Key_BracketLeft:
-        insertPlainText("[]");
-        moveCursor(QTextCursor::Left);
+        {
+            textCursor().beginEditBlock();
+            insertPlainText("[]");
+            moveCursor(QTextCursor::Left);
+            textCursor().endEditBlock();
+        }
         break;
       case Qt::Key_Less:
-        insertPlainText("<>");
-        moveCursor(QTextCursor::Left);
+        {
+            textCursor().beginEditBlock();
+            insertPlainText("<>");
+            moveCursor(QTextCursor::Left);
+            textCursor().endEditBlock();
+        }
         break;
       case Qt::Key_Apostrophe:
-        insertPlainText("''");
-        moveCursor(QTextCursor::Left);
+        {
+            textCursor().beginEditBlock();
+            insertPlainText("''");
+            moveCursor(QTextCursor::Left);
+            textCursor().endEditBlock();
+        }
         break;
       case Qt::Key_QuoteDbl:
-        insertPlainText("\"\"");
-        moveCursor(QTextCursor::Left);
+        {
+            textCursor().beginEditBlock();
+            insertPlainText("\"\"");
+            moveCursor(QTextCursor::Left);
+            textCursor().endEditBlock();
+        }
         break;
       case Qt::Key_Return:
         {

@@ -35,12 +35,15 @@
 using namespace std;
 
 MainWindow::MainWindow(): QMainWindow(){
+
     ui = new Ui::codeeditor;
     ui -> setupUi(this);
-    editor = new CodeEditor(this);
-    highlighter = new SyntaxHighlighter(editor->document());
-    font = new QFont;
 
+    editor = new CodeEditor(this);
+
+    highlighter = new SyntaxHighlighter(editor->document());
+
+    font = new QFont;
     font->setFamily("Courier");
     font->setStyleHint(QFont::Monospace);
     font->setFixedPitch(true);
@@ -66,9 +69,10 @@ MainWindow::MainWindow(): QMainWindow(){
     ui->actionFor      -> connect(ui->actionFor,     SIGNAL(triggered()), this,   SLOT(forstate()));
     ui->actionWhile    -> connect(ui->actionWhile,   SIGNAL(triggered()), this,   SLOT(whilestate()));
     ui->actionDo_While -> connect(ui->actionDo_While,SIGNAL(triggered()), this,   SLOT(dowhilestate()));
-    ui->actionNew      -> connect(ui->actionNew,SIGNAL(triggered()), this, SLOT(newFile()));
+    ui->actionNew      -> connect(ui->actionNew,     SIGNAL(triggered()), this,   SLOT(newFile()));
     ui->actionModify_Active_Syntax_Rules -> connect(ui->actionModify_Active_Syntax_Rules,SIGNAL(triggered()), this,SLOT(checkParen()));
     //ui->actionFind_and_Replace -> connect(ui->actionFind_and_Replace, SIGNAL(triggered()), this, SLOT(findReplace()));
+
     setCentralWidget(editor);
     setWindowTitle(QString("%1 | %2").arg(editorName).arg(tr("untitled")));
     show();
@@ -77,6 +81,7 @@ MainWindow::MainWindow(): QMainWindow(){
 MainWindow::~MainWindow(){
     delete highlighter;
     delete editor;
+    delete font;
     delete ui;
 }
 
