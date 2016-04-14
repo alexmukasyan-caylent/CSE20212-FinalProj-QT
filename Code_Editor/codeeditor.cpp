@@ -1,6 +1,9 @@
 #include <QtWidgets>
 #include "codeeditor.h"
 #include "ui_codeeditor.h"
+#include <QLineEdit>
+#include <QKeyEvent>
+#include <Qt>
 
 
 //![constructor]
@@ -26,7 +29,7 @@ void CodeEditor::ifstate(){
 }
 
 void CodeEditor::ifelsestate(){
-    this->insertPlainText("if([condition){}else{[action];}");
+    this->insertPlainText("if([condition]){}else{[action];}");
 }
 
 void CodeEditor::forstate(){
@@ -62,6 +65,15 @@ void CodeEditor::saveFile(QString fileName){
 }
 
 //![extraAreaWidth]
+#include <QtCore>
+void CodeEditor::keyPressEvent(QKeyEvent *e){
+    if(e->key() == Qt::Key_BraceLeft){
+        this->insertPlainText("{}");
+    }else if(e->key() == Qt::Key_ParenLeft){
+        this->insertPlainText("()");
+    }else{QPlainTextEdit::keyPressEvent(e);}
+
+}
 
 int CodeEditor::lineNumberAreaWidth()
 {

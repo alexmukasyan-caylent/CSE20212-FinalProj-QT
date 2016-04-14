@@ -33,6 +33,7 @@ public:
     void find();
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
+    virtual void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE; //use for parenthesis completion
 private:
     QWidget *lineNumberArea;
     //FindDialog *find;
@@ -40,6 +41,7 @@ private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
     void updateLineNumberArea(const QRect &, int);
+
 };
 
 //![codeeditordefinition]
