@@ -35,6 +35,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent): QSyntaxHighlighter(
             rule.format = quotationFormat;
             highlightingRules.append(rule);
 
+            functionFormat.setFontWeight(QFont::Bold);
             functionFormat.setFontItalic(true);
             functionFormat.setForeground(Qt::blue);
             rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");

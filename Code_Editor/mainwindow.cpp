@@ -57,6 +57,7 @@ MainWindow::MainWindow(): QMainWindow(){
     ui->actionFor      -> connect(ui->actionFor,     SIGNAL(triggered()), this,   SLOT(forstate()));
     ui->actionWhile    -> connect(ui->actionWhile,   SIGNAL(triggered()), this,   SLOT(whilestate()));
     ui->actionDo_While -> connect(ui->actionDo_While,SIGNAL(triggered()), this,   SLOT(dowhilestate()));
+    ui->actionNew      -> connect(ui->actionNew,SIGNAL(triggered()), this, SLOT(newFile()));
     //ui->actionFind_and_Replace -> connect(ui->actionFind_and_Replace, SIGNAL(triggered()), this, SLOT(findReplace()));
     setCentralWidget(editor);
     setWindowTitle(QString("%1 | %2").arg(editorName).arg(tr("untitled")));
