@@ -1,3 +1,4 @@
+
 #include <QtWidgets>
 #include "codeeditor.h"
 #include "ui_codeeditor.h"
@@ -23,6 +24,26 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 }
 
 //![constructor]
+#include <QtGui>
+void CodeEditor::checkParen(){
+    int currentIndex = 0;
+    int openparen = 0;
+    QRegExp rx(".*\x0028"); //match unicode left paren
+    QRegExp rx2(".*\x0029");//match unicode right paren
+    QRegExp rx3(".*\x007B");//match unicode left curly
+    QRegExp rx4(".*\x007D");//match unicode right curly
+    currentIndex++;
+    QString plainTextEditContents = this->toPlainText();
+    QStringList lines = plainTextEditContents.split("\n");
+    QString currentLine = lines[currentIndex];
+    if(rx.exactMatch(currentLine)){
+        openparen++;
+    }
+    QMessageBox::StandardButton parencheck;
+    if(openparen == 1){
+        parencheck = QMessageBox::question(this,"Paren Check","This document has 1 paren",QMessageBox::Ignore|QMessageBox::Cancel );
+    }
+}
 
 void CodeEditor::ifstate(){
     this->insertPlainText("if([condition){}");
@@ -65,12 +86,20 @@ void CodeEditor::saveFile(QString fileName){
 }
 
 //![extraAreaWidth]
-#include <QtCore>
+
 void CodeEditor::keyPressEvent(QKeyEvent *e){
     if(e->key() == Qt::Key_BraceLeft){
         this->insertPlainText("{}");
+        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
+        QApplication::sendEvent(focusWidget(), movePress);
+        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
+        QApplication::sendEvent(focusWidget(),moveRelease);
     }else if(e->key() == Qt::Key_ParenLeft){
         this->insertPlainText("()");
+        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
+        QApplication::sendEvent(focusWidget(), movePress);
+        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
+        QApplication::sendEvent(focusWidget(),moveRelease);
     }else{QPlainTextEdit::keyPressEvent(e);}
 
 }

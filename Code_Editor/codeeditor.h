@@ -31,6 +31,8 @@ public:
     void whilestate();
     void dowhilestate();
     void find();
+    void checkParen();
+    //void QLineEdit::cursorBackward(bool mark, int steps = 1);
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
     virtual void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE; //use for parenthesis completion

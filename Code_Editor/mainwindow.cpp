@@ -58,6 +58,7 @@ MainWindow::MainWindow(): QMainWindow(){
     ui->actionWhile    -> connect(ui->actionWhile,   SIGNAL(triggered()), this,   SLOT(whilestate()));
     ui->actionDo_While -> connect(ui->actionDo_While,SIGNAL(triggered()), this,   SLOT(dowhilestate()));
     ui->actionNew      -> connect(ui->actionNew,SIGNAL(triggered()), this, SLOT(newFile()));
+    ui->actionModify_Active_Syntax_Rules -> connect(ui->actionModify_Active_Syntax_Rules,SIGNAL(triggered()), this,SLOT(checkParen()));
     //ui->actionFind_and_Replace -> connect(ui->actionFind_and_Replace, SIGNAL(triggered()), this, SLOT(findReplace()));
     setCentralWidget(editor);
     setWindowTitle(QString("%1 | %2").arg(editorName).arg(tr("untitled")));
@@ -84,6 +85,9 @@ void MainWindow::openDialog() {
             editor->openFile(filePath);
         }
     }
+}
+void MainWindow::checkParen(){
+    editor->checkParen();
 }
 
 void MainWindow::saveDialog() {
