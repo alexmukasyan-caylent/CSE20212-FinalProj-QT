@@ -39,6 +39,15 @@ MainWindow::MainWindow(): QMainWindow(){
     ui -> setupUi(this);
     editor = new CodeEditor(this);
     highlighter = new SyntaxHighlighter(editor->document());
+    font = new QFont;
+
+    font->setFamily("Courier");
+    font->setStyleHint(QFont::Monospace);
+    font->setFixedPitch(true);
+    font->setPointSize(11);
+    editor->setFont(*font);
+    editor->setTabStopWidth(20);
+
     fileIsOpened = false;
     editorName = QString("Galeanthropy");
 

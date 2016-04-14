@@ -41,6 +41,7 @@ private:
     SyntaxHighlighter *highlighter;
     CodeEditor *editor;
     Ui::codeeditor *ui;
+    QFont *font;
     //FindDialog *find;
     bool fileIsOpened;
     QString filePath;
