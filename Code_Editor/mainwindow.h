@@ -47,6 +47,7 @@ private:
     QString editorName;
     QString windowTitle;
 private slots:
+   void newFile();
    void openDialog();
    void saveDialog();
    void saveAsDialog();

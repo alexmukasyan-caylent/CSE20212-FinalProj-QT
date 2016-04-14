@@ -39,7 +39,6 @@ MainWindow::MainWindow(): QMainWindow(){
     ui -> setupUi(this);
     editor = new CodeEditor(this);
     highlighter = new SyntaxHighlighter(editor->document());
-    //find = new FindDialog(editor->document());
     fileIsOpened = false;
     editorName = QString("Galeanthropy");
 
@@ -71,14 +70,21 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::openDialog() {
-    QString tmpFilePath = QFileDialog::getOpenFileName(this, tr("Open File"));
-    if (!tmpFilePath.isEmpty()) {
-        filePath = tmpFilePath;
-        setWindowTitle(QString("%1 | %2").arg(editorName).arg(filePath.section('/',-1)));
-        fileIsOpened = true;
-        editor->openFile(filePath);
+    QMessageBox::StandardButton shouldSave;
+    shouldSave = QMessageBox::question(this, "Save Document","This document has not been saved.",QMessageBox::Save|QMessageBox::Ignore|QMessageBox::Cancel);
+    if (shouldSave == QMessageBox::Save) {
+        saveDialog();
+    } else if (shouldSave == QMessageBox::Ignore) {
+        QString tmpFilePath = QFileDialog::getOpenFileName(this, tr("Open File"));
+        if (!tmpFilePath.isEmpty()) {
+            filePath = tmpFilePath;
+            setWindowTitle(QString("%1 | %2").arg(editorName).arg(filePath.section('/',-1)));
+            fileIsOpened = true;
+            editor->openFile(filePath);
+        }
     }
 }
+
 void MainWindow::saveDialog() {
     if (fileIsOpened) {
         editor->saveFile(filePath);
@@ -94,6 +100,18 @@ void MainWindow::saveAsDialog(){
         setWindowTitle(QString("%1 | %2").arg(editorName).arg(filePath.section('/',-1)));
         fileIsOpened = true;
         editor->saveFile(filePath);
+    }
+}
+
+void MainWindow::newFile() {
+    fileIsOpened = false;
+    QMessageBox::StandardButton shouldSave;
+    shouldSave = QMessageBox::question(this, "Save Document","This document has not been saved.",QMessageBox::Save|QMessageBox::Ignore|QMessageBox::Cancel);
+    if (shouldSave == QMessageBox::Save) {
+        saveDialog();
+    } else if (shouldSave == QMessageBox::Ignore) {
+        setWindowTitle(QString("%1 | %2").arg(editorName).arg(tr("untitled")));
+        editor->clear();
     }
 }
 
