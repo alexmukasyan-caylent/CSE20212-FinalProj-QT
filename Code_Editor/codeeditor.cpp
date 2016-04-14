@@ -28,11 +28,13 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 void CodeEditor::checkParen(){
     int currentIndex = 0;
     int openparen = 0;
-    QRegExp rx(".*\x0028"); //match unicode left paren
-    QRegExp rx2(".*\x0029");//match unicode right paren
-    QRegExp rx3(".*\x007B");//match unicode left curly
-    QRegExp rx4(".*\x007D");//match unicode right curly
-    currentIndex++;
+    QRegExp rx(".*("); //match unicode left paren
+    QRegExp rx2(".*)");//match unicode right paren
+    QRegExp rx3(".*{");//match unicode left curly
+    QRegExp rx4(".*}");//match unicode right curly
+    QRegExp rx5(".*[");//match unicode left curly
+    QRegExp rx6(".*]");//match unicode right curly
+    //currentIndex++;
     QString plainTextEditContents = this->toPlainText();
     QStringList lines = plainTextEditContents.split("\n");
     QString currentLine = lines[currentIndex];
@@ -87,20 +89,78 @@ void CodeEditor::saveFile(QString fileName){
 
 //![extraAreaWidth]
 
+QString CodeEditor::getLineIndent() {
+    int location = textCursor().position();
+    QString indent;
+    moveCursor(QTextCursor::StartOfLine);
+    while (textCursor().position() < location && QRegExp("\\s*").exactMatch(textCursor().selectedText())) {
+        moveCursor(QTextCursor::Right,QTextCursor::KeepAnchor);
+    }
+    if (QRegExp("\\s*").exactMatch(textCursor().selectedText().right(1))) {
+        indent = textCursor().selectedText();
+    } else {
+        moveCursor(QTextCursor::Left,QTextCursor::KeepAnchor);
+        indent = textCursor().selectedText();
+    }
+    while (textCursor().position() < location) {
+        moveCursor(QTextCursor::Right);
+    }
+    return indent;
+}
+
 void CodeEditor::keyPressEvent(QKeyEvent *e){
-    if(e->key() == Qt::Key_BraceLeft){
-        this->insertPlainText("{}");
-        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
-        QApplication::sendEvent(focusWidget(), movePress);
-        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
-        QApplication::sendEvent(focusWidget(),moveRelease);
-    }else if(e->key() == Qt::Key_ParenLeft){
-        this->insertPlainText("()");
-        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
-        QApplication::sendEvent(focusWidget(), movePress);
-        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
-        QApplication::sendEvent(focusWidget(),moveRelease);
-    }else{QPlainTextEdit::keyPressEvent(e);}
+    switch(e->key()) {
+      case Qt::Key_BraceLeft:
+        insertPlainText("{}");
+        QPlainTextEdit::moveCursor(QTextCursor::Left);
+        break;
+      case Qt::Key_ParenLeft:
+        insertPlainText("()");
+        moveCursor(QTextCursor::Left);
+        break;
+      case Qt::Key_BracketLeft:
+        insertPlainText("[]");
+        moveCursor(QTextCursor::Left);
+        break;
+      case Qt::Key_Less:
+        insertPlainText("<>");
+        moveCursor(QTextCursor::Left);
+        break;
+      case Qt::Key_Apostrophe:
+        insertPlainText("''");
+        moveCursor(QTextCursor::Left);
+        break;
+      case Qt::Key_QuoteDbl:
+        insertPlainText("\"\"");
+        moveCursor(QTextCursor::Left);
+        break;
+      case Qt::Key_Return:
+        {
+            textCursor().beginEditBlock();
+            QString indent = getLineIndent();
+            QPlainTextEdit::keyPressEvent(e);
+            insertPlainText(indent);
+            textCursor().endEditBlock();
+        }
+        break;
+      default:
+        QPlainTextEdit::keyPressEvent(e);
+        break;
+    }
+
+//    if(e->key() == Qt::Key_BraceLeft){
+//        this->
+//        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
+//        QApplication::sendEvent(focusWidget(), movePress);
+//        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
+//        QApplication::sendEvent(focusWidget(),moveRelease);
+//    } else if(e->key() == Qt::Key_ParenLeft) {
+//        this->insertPlainText("()");
+//        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
+//        QApplication::sendEvent(focusWidget(), movePress);
+//        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
+//        QApplication::sendEvent(focusWidget(),moveRelease);
+//    }else{;}
 
 }
 
