@@ -147,21 +147,6 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
         QPlainTextEdit::keyPressEvent(e);
         break;
     }
-
-//    if(e->key() == Qt::Key_BraceLeft){
-//        this->
-//        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
-//        QApplication::sendEvent(focusWidget(), movePress);
-//        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
-//        QApplication::sendEvent(focusWidget(),moveRelease);
-//    } else if(e->key() == Qt::Key_ParenLeft) {
-//        this->insertPlainText("()");
-//        QEvent *movePress= new QKeyEvent(QEvent::KeyPress, Qt::Key_Left,   Qt::NoModifier);
-//        QApplication::sendEvent(focusWidget(), movePress);
-//        QEvent *moveRelease= new QKeyEvent(QEvent::KeyRelease,  Qt::Key_Left,  Qt::NoModifier);
-//        QApplication::sendEvent(focusWidget(),moveRelease);
-//    }else{;}
-
 }
 
 int CodeEditor::lineNumberAreaWidth()
