@@ -28,7 +28,7 @@
 #include "codeeditor.h"
 #include "syntaxhighlighter.h"
 #include "ui_codeeditor.h"
-#include "finddialog.h"
+//#include "finddialog.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -41,6 +41,7 @@ private:
     SyntaxHighlighter *highlighter;
     CodeEditor *editor;
     Ui::codeeditor *ui;
+    //findDialog *find;
     QFont *font;
     //FindDialog *find;
     bool fileIsOpened;
@@ -58,7 +59,7 @@ private slots:
    void whilestate();
    void dowhilestate();
    void checkParen();
-   //void findReplace();
+   void findReplace();
    //void searchDown(QString, Qt::CaseSensitivity); // searches for a word going down the page
    //void searchUp(QString, Qt::CaseSensitivity); // searches for a word goign up the page
    //void replaceWord(QString); // repl

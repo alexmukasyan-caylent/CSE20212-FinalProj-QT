@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QKeyEvent>
 #include <Qt>
+#include <QPlainTextEdit>
 
 
 //![constructor]
@@ -26,24 +27,31 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 //![constructor]
 #include <QtGui>
 void CodeEditor::checkParen(){
-    int currentIndex = 0;
-    int openparen = 0;
-    QRegExp rx(".*("); //match unicode left paren
-    QRegExp rx2(".*)");//match unicode right paren
-    QRegExp rx3(".*{");//match unicode left curly
-    QRegExp rx4(".*}");//match unicode right curly
-    QRegExp rx5(".*[");//match unicode left curly
-    QRegExp rx6(".*]");//match unicode right curly
-    //currentIndex++;
     QString plainTextEditContents = this->toPlainText();
-    QStringList lines = plainTextEditContents.split("\n");
-    QString currentLine = lines[currentIndex];
-    if(rx.exactMatch(currentLine)){
-        openparen++;
+    int openParen = plainTextEditContents.count("(");
+    int closeParen = plainTextEditContents.count(")");
+    int openCurly = plainTextEditContents.count("{");
+    int closeCurly = plainTextEditContents.count("}");
+    int openBrack = plainTextEditContents.count("[");
+    int closeBrack = plainTextEditContents.count("]");
+    QString message;
+    bool missing = false;
+    message = "You are missing a:\n";
+    if( openParen != closeParen){
+        message += "parenthesis\n";
+        missing = true;
     }
-    QMessageBox::StandardButton parencheck;
-    if(openparen == 1){
-        parencheck = QMessageBox::question(this,"Paren Check","This document has 1 paren",QMessageBox::Ignore|QMessageBox::Cancel );
+    if( openCurly != closeCurly){
+        message += "curly brace\n";
+        missing = true;
+    }
+    if( openBrack != closeBrack){
+        message += "bracket\n";
+        missing = true;
+    }
+    if(missing){
+        QMessageBox::StandardButton parencheck;
+        parencheck = QMessageBox::question(this,"Parenthesis Match Check",message,QMessageBox::Ignore|QMessageBox::Cancel );
     }
 }
 

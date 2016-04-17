@@ -26,7 +26,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent): QSyntaxHighlighter(
         }
         classFormat.setFontWeight(QFont::Bold);
             classFormat.setForeground(Qt::darkMagenta);
-            rule.pattern = QRegExp("\\bQ[A-Za-z]+\\b");
+            rule.pattern = QRegExp("\<[A-Za-z]+\>");
             rule.format = classFormat;
             highlightingRules.append(rule);
 
