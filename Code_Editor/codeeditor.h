@@ -33,6 +33,8 @@ public:
     void find();
     void checkParen();
     QString getLineIndent();
+    void findReplace(QString find, QString replace, Qt::CaseSensitivity cs);
+    int find(QString find, Qt::CaseSensitivity cs, int whichOne = 0);
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
     virtual void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE; //use for parenthesis completion

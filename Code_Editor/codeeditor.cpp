@@ -55,6 +55,36 @@ void CodeEditor::checkParen(){
     }
 }
 
+int CodeEditor::find(QString text, Qt::CaseSensitivity cs, int whichOne) {
+
+    QString documentText = this->toPlainText();
+    int nOccurences = documentText.count(text);
+    int currentPosition = 0;
+    if (nOccurences > 0) {
+        whichOne %= nOccurences;
+        while (whichOne-- > 0) {
+            currentPosition = documentText.indexOf(text, currentPosition, cs);
+        }
+        textCursor().movePosition(QTextCursor::Start);
+        while (currentPosition > 0) {
+            textCursor().movePosition(QTextCursor::Right);
+        }
+        textCursor().movePosition(QTextCursor::EndOfWord, QTextCursor::KeepAnchor);
+        return nOccurences;
+    } else {
+        return 0;
+    }
+
+}
+
+void CodeEditor::findReplace(QString before, QString after, Qt::CaseSensitivity cs) {
+
+    QString documentText = this->toPlainText();
+    documentText.replace(before,after,cs);
+    setPlainText(documentText);
+
+}
+
 void CodeEditor::ifstate(){
     this->insertPlainText("if([condition){}");
 }
@@ -330,85 +360,3 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
     }
 }
 //![extraAreaPaintEvent_2]
-//void CodeEditor::searchUp(QString text, Qt::CaseSensitivity cs) //finds text movign downward
-//{
-//    if (!text.isEmpty())
-//    {
-//        if (!(editor->textCursor().atStart()))
-//            editor->moveCursor(QTextCursor::NextWord);
-
-//        editor->moveCursor(QTextCursor::StartOfWord);
-
-//        bool sens;
-//        if(cs == Qt::CaseSensitive)
-//            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindCaseSensitively);
-//        else
-//            sens = editor->find(text, QTextDocument::FindWholeWords);
-
-//        if (sens)
-//        {
-//            QTextCursor cursor = editor->textCursor();
-//            cursor.select(QTextCursor::WordUnderCursor);
-//        }
-//        else if (editor->textCursor().atStart())
-//        {
-//            QMessageBox notFound;
-//            notFound.setText("Keyword not found.");
-//            notFound.exec();
-//        }
-//        else
-//        {
-//            editor->moveCursor(QTextCursor::Start);
-//        }
-//    }
-//}
-
-//void CodeEditor::searchDown(QString text, Qt::CaseSensitivity cs)// finds text moving upward
-//{
-//    if (!text.isEmpty())
-//    {
-//        if (!(editor->textCursor().atEnd()))
-//            editor->moveCursor(QTextCursor::PreviousWord);
-
-//        bool sens;
-//        if(cs == Qt::CaseSensitive)
-//            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindBackward | QTextDocument::FindCaseSensitively);
-//        else
-//            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindBackward);
-
-//        if (sens)
-//        {
-//            QTextCursor cursor = editor->textCursor();
-//            cursor.select(QTextCursor::WordUnderCursor);
-//        }
-//        else if (editor->textCursor().atEnd())
-//        {
-//            QMessageBox notFound;
-//            notFound.setText("Keyword not found.");
-//            notFound.exec();
-//        }
-//        else
-//        {
-//            editor->moveCursor(QTextCursor::End);
-//        }
-//    }
-//}
-
-//void CodeEditor::replaceWord(QString text) //replaces selected text
-//{
-//    if (!text.isEmpty())
-//    {
-//        if (editor->textCursor().hasSelection())
-//        {
-//            editor->textCursor().removeSelectedText();
-//            editor->textCursor().insertText(text);
-//        }
-//        else
-//        {
-//            QMessageBox notFound;
-//            notFound.setText("No text selected.");
-//            notFound.exec();
-//        }
-//    }
-//}
-
