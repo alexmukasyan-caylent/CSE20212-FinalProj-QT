@@ -1,6 +1,5 @@
 #include <QtWidgets/QWidget>
 #include "mainwindow.h"
-#include "finddialog.h"
 #include <QCheckBox>
 #include <QFormLayout>
 #include <QDialogButtonBox>
@@ -77,6 +76,7 @@ MainWindow::MainWindow(): QMainWindow(){
     ui->actionNew      -> connect(ui->actionNew,     SIGNAL(triggered()), this,   SLOT(newFile()));
     ui->actionModify_Active_Syntax_Rules -> connect(ui->actionModify_Active_Syntax_Rules,SIGNAL(triggered()), this,SLOT(checkParen()));
     ui->actionFind_and_Replace -> connect(ui->actionFind_and_Replace, SIGNAL(triggered()), this, SLOT(findReplace()));
+    ui->actionFind -> connect(ui->actionFind, SIGNAL(triggered(bool)), this, SLOT(find()));
 
     setCentralWidget(editor);
     setWindowTitle(QString("%1 | %2").arg(editorName).arg(tr("untitled")));
@@ -140,6 +140,34 @@ void MainWindow::newFile() {
     }
 }
 
+void MainWindow::find(){
+    QDialog dialog(this);
+    // Use a layout allowing to have a label next to each field
+    QFormLayout form(&dialog);
+
+    // Add some text above the fields
+    form.addRow(new QLabel("Input Word for Find/Replace:"));
+
+    // Add the lineEdits with their respective labels
+    QLineEdit *lineEdit1 = new QLineEdit(&dialog);
+    QString label1 = QString("Find");
+    form.addRow(label1, lineEdit1);
+    QCheckBox *checkbox = new QCheckBox("C&ase sensitive", &dialog);
+    form.addRow(checkbox);
+
+    // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                               Qt::Horizontal, &dialog);
+    form.addRow(&buttonBox);
+    QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+    // Show the dialog as modal
+    if (dialog.exec() == QDialog::Accepted) {
+        editor->findString(lineEdit1->text(),(checkbox->checkState() == Qt::Checked) ? Qt::CaseSensitive : Qt::CaseInsensitive);
+    }
+}
+
 void MainWindow::findReplace(){
     QDialog dialog(this);
     // Use a layout allowing to have a label next to each field
@@ -161,14 +189,6 @@ void MainWindow::findReplace(){
     QCheckBox *checkbox = new QCheckBox("C&ase sensitive", &dialog);
     form.addRow(checkbox);
 
-//    for(int i = 0; i < 2; ++i) {
-//        QLineEdit *lineEdit = new QLineEdit(&dialog);
-//        QString label = QString("Value %1").arg(i + 1);
-//        form.addRow(label, lineEdit);
-
-//        fields << lineEdit;
-//    }
-
     // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
     QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
                                Qt::Horizontal, &dialog);
@@ -178,10 +198,7 @@ void MainWindow::findReplace(){
 
     // Show the dialog as modal
     if (dialog.exec() == QDialog::Accepted) {
-        // If the user didn't dismiss the dialog, do something with the fields
-//        foreach(QLineEdit * lineEdit, fields) {
-//            qDebug() << lineEdit->text();
-//        }
+        editor->findReplace(lineEdit1->text(),lineEdit2->text(), (checkbox->checkState() == Qt::Checked) ? Qt::CaseSensitive : Qt::CaseInsensitive);
     }
 }
 

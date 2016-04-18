@@ -60,9 +60,7 @@ private slots:
    void dowhilestate();
    void checkParen();
    void findReplace();
-   //void searchDown(QString, Qt::CaseSensitivity); // searches for a word going down the page
-   //void searchUp(QString, Qt::CaseSensitivity); // searches for a word goign up the page
-   //void replaceWord(QString); // repl
+   void find();
 };
 
 

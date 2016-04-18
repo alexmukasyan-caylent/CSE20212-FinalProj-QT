@@ -55,26 +55,8 @@ void CodeEditor::checkParen(){
     }
 }
 
-int CodeEditor::find(QString text, Qt::CaseSensitivity cs, int whichOne) {
-
-    QString documentText = this->toPlainText();
-    int nOccurences = documentText.count(text);
-    int currentPosition = 0;
-    if (nOccurences > 0) {
-        whichOne %= nOccurences;
-        while (whichOne-- > 0) {
-            currentPosition = documentText.indexOf(text, currentPosition, cs);
-        }
-        textCursor().movePosition(QTextCursor::Start);
-        while (currentPosition > 0) {
-            textCursor().movePosition(QTextCursor::Right);
-        }
-        textCursor().movePosition(QTextCursor::EndOfWord, QTextCursor::KeepAnchor);
-        return nOccurences;
-    } else {
-        return 0;
-    }
-
+void CodeEditor::findString(QString text, Qt::CaseSensitivity cs) {
+    if (toPlainText().count(text,cs) > 0) setTextCursor(document()->find(text, textCursor()));
 }
 
 void CodeEditor::findReplace(QString before, QString after, Qt::CaseSensitivity cs) {

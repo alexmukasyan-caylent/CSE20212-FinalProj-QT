@@ -4,7 +4,6 @@
 #include <QPlainTextEdit>
 #include <QObject>
 #include "ui_codeeditor.h"
-#include "finddialog.h"
 
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
@@ -30,11 +29,11 @@ public:
     void forstate();
     void whilestate();
     void dowhilestate();
-    void find();
+    void findString();
     void checkParen();
     QString getLineIndent();
     void findReplace(QString find, QString replace, Qt::CaseSensitivity cs);
-    int find(QString find, Qt::CaseSensitivity cs, int whichOne = 0);
+    void findString(QString text, Qt::CaseSensitivity cs);
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE; //resize option given by example
     virtual void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE; //use for parenthesis completion

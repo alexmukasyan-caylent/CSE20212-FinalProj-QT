@@ -50,6 +50,7 @@
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
     <addaction name="separator"/>
+    <addaction name="actionFind"/>
     <addaction name="actionFind_and_Replace"/>
    </widget>
    <widget class="QMenu" name="menuTemplates">
@@ -67,7 +68,6 @@
     <property name="title">
      <string>Syntax Validation</string>
     </property>
-    <addaction name="actionModify_Type_Declarations"/>
     <addaction name="actionModify_Active_Syntax_Rules"/>
    </widget>
    <addaction name="menu_File"/>
@@ -181,7 +181,12 @@
   </action>
   <action name="actionModify_Active_Syntax_Rules">
    <property name="text">
-    <string>Modify Active Syntax Rules</string>
+    <string>Check for Matching Blocks</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="text">
+    <string>Find</string>
    </property>
   </action>
  </widget>
