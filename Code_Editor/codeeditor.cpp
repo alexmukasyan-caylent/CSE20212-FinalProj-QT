@@ -6,27 +6,26 @@
 #include <QKeyEvent>
 #include <Qt>
 #include <QPlainTextEdit>
+#include <QtGui>
 
 
 //![constructor]
-
+//class constructor which also connects functions to buttons and instantiates the lineNumberArea class
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
-    //find = new FindDialog(this);
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
-//    connect(find, SIGNAL(findPrevious(QString, Qt::CaseSensitivity)), this, SLOT(searchDown(QString, Qt::CaseSensitivity)));
-//    connect(find, SIGNAL(findNext(QString, Qt::CaseSensitivity)), this, SLOT(searchUp(QString, Qt::CaseSensitivity)));
-//    connect(find, SIGNAL(replace(QString)), this, SLOT(replaceWord(QString)));
     updateLineNumberAreaWidth(0);
     highlightCurrentLine();
 }
 
 //![constructor]
-#include <QtGui>
 void CodeEditor::checkParen(){
+    //this function will tally all the open and closing container symbols inside of
+    //code editor. It will then compare the tallys of open and close symbols.
+    //If there is a difference a notification will be given off
     QString plainTextEditContents = this->toPlainText();
     int openParen = plainTextEditContents.count("(");
     int closeParen = plainTextEditContents.count(")");
@@ -66,9 +65,10 @@ void CodeEditor::findReplace(QString before, QString after, Qt::CaseSensitivity 
     setPlainText(documentText);
 
 }
-
+//the next 5 functions simple insert the quoted text into the current cursor position inside of CodeEditor
+//these are the implementation of our loop template feature.
 void CodeEditor::ifstate(){
-    this->insertPlainText("if([condition){}");
+    this->insertPlainText("if([condition]){}");
 }
 
 void CodeEditor::ifelsestate(){
@@ -154,7 +154,8 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
           }
         }
         break;
-      case Qt::Key_BraceLeft:
+      case Qt::Key_BraceLeft: //notices on keypress that an open brace has been entered and immediately puts a
+                              //closing brace and moves the cursor inside
         {
             textCursor().beginEditBlock();
             placedDoubleCharacter = true;
@@ -163,7 +164,8 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
             textCursor().endEditBlock();
         }
         break;
-      case Qt::Key_ParenLeft:
+      case Qt::Key_ParenLeft://notices on keypress that an open paren has been entered and immediately puts a
+        //closing paren and moves the cursor inside
         {
             textCursor().beginEditBlock();
             placedDoubleCharacter = true;
@@ -172,7 +174,8 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
             textCursor().endEditBlock();
         }
         break;
-      case Qt::Key_BracketLeft:
+      case Qt::Key_BracketLeft://notices on keypress that an open paren has been entered and immediately puts a
+        //closing paren and moves the cursor inside
         {
             textCursor().beginEditBlock();
             placedDoubleCharacter = true;
@@ -190,7 +193,9 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
             textCursor().endEditBlock();
         }
         break;
-      case Qt::Key_Apostrophe:
+      case Qt::Key_Apostrophe://notices on keypress that an apostrophe has been entered and immediately puts a
+        //closing apostrophe and moves the cursor inside
+
         {
             if (!placedDoubleCharacter) {
                 textCursor().beginEditBlock();
@@ -235,7 +240,7 @@ void CodeEditor::keyPressEvent(QKeyEvent *e){
         break;
     }
 }
-
+/*all lineNumber and highlight functions were given in a QT example*/
 int CodeEditor::lineNumberAreaWidth()
 {
     int digits = 1;

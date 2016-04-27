@@ -43,8 +43,6 @@ MainWindow::MainWindow(): QMainWindow(){
     ui -> setupUi(this);
 
     editor = new CodeEditor(this);
-//    find = new findDialog(this);
-//    setMenuWidget(find);
     highlighter = new SyntaxHighlighter(editor->document());
 
     font = new QFont;
@@ -57,7 +55,7 @@ MainWindow::MainWindow(): QMainWindow(){
 
     fileIsOpened = false;
     editorName = QString("Galeanthropy");
-
+    //this next block of code connects all of the functions (SLOT) to the corresponding buttons(ui->buttonName) on the UI
     ui->actionQuit     -> connect(ui->actionQuit,    SIGNAL(triggered()), this,   SLOT(close()));
     ui->actionCopy     -> connect(ui->actionCopy,    SIGNAL(triggered()), editor, SLOT(copy()));
     ui->actionCut      -> connect(ui->actionCut,     SIGNAL(triggered()), editor, SLOT(cut()));
@@ -88,7 +86,6 @@ MainWindow::~MainWindow(){
     delete editor;
     delete font;
     delete ui;
-//    delete find;
 }
 
 void MainWindow::openDialog() {
@@ -201,7 +198,10 @@ void MainWindow::findReplace(){
         editor->findReplace(lineEdit1->text(),lineEdit2->text(), (checkbox->checkState() == Qt::Checked) ? Qt::CaseSensitive : Qt::CaseInsensitive);
     }
 }
-
+//these next functions simply point to the functions inside of editor.cpp
+//this is done because the user is actually writing inside of editor, not mainwindow
+//main window just handles the opening and closing of the file. All manipulation is done
+//through editor which is the main widget in the UI
 void MainWindow::ifstate(){
     editor->ifstate();
 }
@@ -221,85 +221,3 @@ void MainWindow::whilestate(){
 void MainWindow::dowhilestate(){
     editor->dowhilestate();
 }
-
-//void MainWindow::searchUp(QString text, Qt::CaseSensitivity cs) //finds text movign downward
-//{
-//    if (!text.isEmpty())
-//    {
-//        if (!(editor->textCursor().atStart()))
-//            editor->moveCursor(QTextCursor::NextWord);
-
-//        editor->moveCursor(QTextCursor::StartOfWord);
-
-//        bool sens;
-//        if(cs == Qt::CaseSensitive)
-//            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindCaseSensitively);
-//        else
-//            sens = editor->find(text, QTextDocument::FindWholeWords);
-
-//        if (sens)
-//        {
-//            QTextCursor cursor = editor->textCursor();
-//            cursor.select(QTextCursor::WordUnderCursor);
-//        }
-//        else if (editor->textCursor().atStart())
-//        {
-//            QMessageBox notFound;
-//            notFound.setText("Keyword not found.");
-//            notFound.exec();
-//        }
-//        else
-//        {
-//            editor->moveCursor(QTextCursor::Start);
-//        }
-//    }
-//}
-
-//void MainWindow::searchDown(QString text, Qt::CaseSensitivity cs)// finds text moving upward
-//{
-//    if (!text.isEmpty())
-//    {
-//        if (!(editor->textCursor().atEnd()))
-//            editor->moveCursor(QTextCursor::PreviousWord);
-
-//        bool sens;
-//        if(cs == Qt::CaseSensitive)
-//            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindBackward | QTextDocument::FindCaseSensitively);
-//        else
-//            sens = editor->find(text, QTextDocument::FindWholeWords | QTextDocument::FindBackward);
-
-//        if (sens)
-//        {
-//            QTextCursor cursor = editor->textCursor();
-//            cursor.select(QTextCursor::WordUnderCursor);
-//        }
-//        else if (editor->textCursor().atEnd())
-//        {
-//            QMessageBox notFound;
-//            notFound.setText("Keyword not found.");
-//            notFound.exec();
-//        }
-//        else
-//        {
-//            editor->moveCursor(QTextCursor::End);
-//        }
-//    }
-//}
-
-//void MainWindow::replaceWord(QString text) //replaces selected text
-//{
-//    if (!text.isEmpty())
-//    {
-//        if (editor->textCursor().hasSelection())
-//        {
-//            editor->textCursor().removeSelectedText();
-//            editor->textCursor().insertText(text);
-//        }
-//        else
-//        {
-//            QMessageBox notFound;
-//            notFound.setText("No text selected.");
-//            notFound.exec();
-//        }
-//    }
-//}

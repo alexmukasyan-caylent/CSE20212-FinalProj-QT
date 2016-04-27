@@ -40,7 +40,6 @@ protected:
 private:
     QWidget *lineNumberArea;
     bool placedDoubleCharacter;
-    //FindDialog *find;
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
